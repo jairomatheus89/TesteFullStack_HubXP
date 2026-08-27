@@ -9,13 +9,8 @@ export class ProductsController{
     private readonly productsService: ProductsService
   ){}
 
-  @Get()
-  helloFromProducts(): string {
-    return "HELLO FROM PRODUCTS BUDDY!"
-  }
-
   @Post()
   ProductRegister(@Body() body: ProductRegister) {
-    return this.productsService.minorAge();
+    return this.productsService.registerProduct(body);
   }
 }

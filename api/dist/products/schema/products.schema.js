@@ -9,40 +9,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductRegister = void 0;
-const class_validator_1 = require("class-validator");
-class ProductRegister {
+exports.ProductSchema = exports.Product = void 0;
+const mongoose_1 = require("@nestjs/mongoose");
+let Product = class Product {
     name;
     description;
     price;
     categoryIds;
     imageUrl;
-}
-exports.ProductRegister = ProductRegister;
+};
+exports.Product = Product;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], ProductRegister.prototype, "name", void 0);
+], Product.prototype, "name", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], ProductRegister.prototype, "description", void 0);
+], Product.prototype, "description", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsNumber)(),
+    (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", Number)
-], ProductRegister.prototype, "price", void 0);
+], Product.prototype, "price", void 0);
 __decorate([
-    (0, class_validator_1.IsArray)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsMongoId)({ each: true }),
+    (0, mongoose_1.Prop)([String]),
     __metadata("design:type", Array)
-], ProductRegister.prototype, "categoryIds", void 0);
+], Product.prototype, "categoryIds", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
+    (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
-], ProductRegister.prototype, "imageUrl", void 0);
-//# sourceMappingURL=ProductRegister.dto.js.map
+], Product.prototype, "imageUrl", void 0);
+exports.Product = Product = __decorate([
+    (0, mongoose_1.Schema)()
+], Product);
+exports.ProductSchema = mongoose_1.SchemaFactory.createForClass(Product);
+//# sourceMappingURL=products.schema.js.map

@@ -21,20 +21,11 @@ let ProductsController = class ProductsController {
     constructor(productsService) {
         this.productsService = productsService;
     }
-    helloFromProducts() {
-        return "HELLO FROM PRODUCTS BUDDY!";
-    }
     ProductRegister(body) {
-        return this.productsService.minorAge();
+        return this.productsService.registerProduct(body);
     }
 };
 exports.ProductsController = ProductsController;
-__decorate([
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], ProductsController.prototype, "helloFromProducts", null);
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),

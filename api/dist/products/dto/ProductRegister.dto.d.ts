@@ -3,5 +3,5 @@ export declare class ProductRegister {
     description: string;
     price: number;
     categoryIds: string[];
-    imageUrl?: string;
+    imageUrl: string;
 }
