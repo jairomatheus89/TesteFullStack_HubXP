@@ -14,6 +14,7 @@ const app_service_1 = require("./app.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const products_module_1 = require("./products/products.module");
 const category_module_1 = require("./category/category.module");
+const order_module_1 = require("./order/order.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -25,7 +26,8 @@ exports.AppModule = AppModule = __decorate([
             }),
             mongoose_1.MongooseModule.forRoot(process.env.MONGODB_URI),
             products_module_1.ProductsModule,
-            category_module_1.CategoryModule
+            category_module_1.CategoryModule,
+            order_module_1.OrderModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

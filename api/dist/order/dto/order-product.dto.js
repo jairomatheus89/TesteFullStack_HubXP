@@ -9,15 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CategoryGet = void 0;
+exports.OrderProductDto = void 0;
 const class_validator_1 = require("class-validator");
-class CategoryGet {
-    id;
+class OrderProductDto {
+    productId;
+    quantity;
 }
-exports.CategoryGet = CategoryGet;
+exports.OrderProductDto = OrderProductDto;
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsMongoId)(),
     __metadata("design:type", String)
-], CategoryGet.prototype, "id", void 0);
-//# sourceMappingURL=category-get.dto.js.map
+], OrderProductDto.prototype, "productId", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], OrderProductDto.prototype, "quantity", void 0);
+//# sourceMappingURL=order-product.dto.js.map

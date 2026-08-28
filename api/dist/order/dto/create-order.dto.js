@@ -9,40 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductRegister = void 0;
+exports.OrderCreateDto = void 0;
 const class_validator_1 = require("class-validator");
-class ProductRegister {
-    name;
-    description;
-    price;
-    categoryIds;
-    imageUrl;
+class OrderCreateDto {
+    products;
 }
-exports.ProductRegister = ProductRegister;
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], ProductRegister.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], ProductRegister.prototype, "description", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], ProductRegister.prototype, "price", void 0);
+exports.OrderCreateDto = OrderCreateDto;
 __decorate([
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsMongoId)({ each: true }),
     __metadata("design:type", Array)
-], ProductRegister.prototype, "categoryIds", void 0);
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], ProductRegister.prototype, "imageUrl", void 0);
-//# sourceMappingURL=ProductRegister.dto.js.map
+], OrderCreateDto.prototype, "products", void 0);
+//# sourceMappingURL=create-order.dto.js.map
