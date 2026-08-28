@@ -15,14 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductsController = void 0;
 const common_1 = require("@nestjs/common");
 const products_service_1 = require("./products.service");
-const ProductRegister_dto_1 = require("./dto/ProductRegister.dto");
+const product_register_dto_1 = require("./dto/product-register.dto");
+const product_by_id_dto_1 = require("./dto/product-by-id.dto");
+const product_patch_dto_1 = require("./dto/product-patch.dto");
 let ProductsController = class ProductsController {
     productsService;
     constructor(productsService) {
         this.productsService = productsService;
     }
-    ProductRegister(body) {
-        return this.productsService.registerProduct(body);
+    postProduct(body) {
+        return this.productsService.postProduct(body);
+    }
+    getProduct(body) {
+        return this.productsService.getProduct(body);
+    }
+    patchProduct(body) {
+        return this.productsService.patchProduct(body);
+    }
+    removeProduct(body) {
+        return this.productsService.removeProduct(body);
     }
 };
 exports.ProductsController = ProductsController;
@@ -30,9 +41,30 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [ProductRegister_dto_1.ProductRegister]),
+    __metadata("design:paramtypes", [product_register_dto_1.ProductRegister]),
     __metadata("design:returntype", void 0)
-], ProductsController.prototype, "ProductRegister", null);
+], ProductsController.prototype, "postProduct", null);
+__decorate([
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [product_by_id_dto_1.ProductId]),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "getProduct", null);
+__decorate([
+    (0, common_1.Patch)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [product_patch_dto_1.ProductPatcher]),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "patchProduct", null);
+__decorate([
+    (0, common_1.Delete)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [product_by_id_dto_1.ProductId]),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "removeProduct", null);
 exports.ProductsController = ProductsController = __decorate([
     (0, common_1.Controller)('products'),
     __metadata("design:paramtypes", [products_service_1.ProductsService])

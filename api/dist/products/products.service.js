@@ -17,20 +17,67 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const products_schema_1 = require("./schema/products.schema");
+const category_schema_1 = require("../category/schema/category.schema");
 let ProductsService = class ProductsService {
     productModel;
-    constructor(productModel) {
+    categoryModel;
+    constructor(productModel, categoryModel) {
         this.productModel = productModel;
+        this.categoryModel = categoryModel;
     }
-    async registerProduct(data) {
+    async postProduct(data) {
+        const categories = await this.categoryModel.find({
+            _id: { $in: data.categoryIds },
+        });
+        if (categories.length !== data.categoryIds.length) {
+            throw new common_1.NotFoundException("Uma ou mais categorias não existem...");
+        }
         const product = new this.productModel(data);
         return product.save();
+    }
+    async getProduct(data) {
+        const category = await this.productModel.findById(data.id);
+        return category;
+    }
+    async patchProduct(data) {
+        const categories = await this.categoryModel.find({
+            _id: { $in: data.categoryIds },
+        });
+        if (categories.length !== data.categoryIds.length) {
+            throw new common_1.NotFoundException("Uma ou mais categorias não existem...");
+        }
+        const product = await this.productModel.findByIdAndUpdate(data.id, {
+            name: data.name,
+            description: data.description,
+            price: data.price,
+            categoryIds: data.categoryIds,
+            imageUrl: data.imageUrl
+        }, { returnDocument: 'after' });
+        if (product == null) {
+            throw new common_1.NotFoundException("Product já não existe mais...");
+        }
+        return {
+            status: "Produto atualizado!",
+            product: product
+        };
+    }
+    async removeProduct(data) {
+        const product = await this.productModel.findByIdAndDelete(data.id, { returnDocument: 'after' });
+        if (product == null) {
+            throw new common_1.NotFoundException("Produto não existente");
+        }
+        return {
+            status: "Produto Deletado!",
+            produto: product
+        };
     }
 };
 exports.ProductsService = ProductsService;
 exports.ProductsService = ProductsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(products_schema_1.Product.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, (0, mongoose_1.InjectModel)(category_schema_1.Category.name)),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        mongoose_2.Model])
 ], ProductsService);
 //# sourceMappingURL=products.service.js.map

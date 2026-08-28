@@ -1,4 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Schema as MongooseSchema, Types} from "mongoose";
+import { Category } from "../../category/schema/category.schema";
 
 @Schema()
 export class Product{
@@ -11,8 +13,11 @@ export class Product{
   @Prop({required: true})
   price!: number;
 
-  @Prop([String])
-  categoryIds!: string[];
+  @Prop({
+    type:[{type: MongooseSchema.Types.ObjectId, ref: Category.name}],
+    required: true
+  })
+  categoryIds!: Types.ObjectId[];
 
   @Prop()
   imageUrl!: string;
