@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Put } from "@nestjs/common";
 import { OrderService } from "./order.service";
 
 //DTOs
@@ -24,9 +24,9 @@ export class OrderController{
     return this.orderService.getOrder(dto);
   }
 
-  @Patch()
-  patchOrder(@Body() dto: OrderPatchDto){
-    return this.orderService.patchOrder(dto);
+  @Put()
+  putOrder(@Body() dto: OrderPatchDto){
+    return this.orderService.putOrder(dto);
   }
 
   @Delete()

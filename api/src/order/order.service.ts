@@ -65,7 +65,7 @@ export class OrderService {
 
   }
 
-  async patchOrder(@Body() dto: OrderPatchDto){
+  async putOrder(@Body() dto: OrderPatchDto){
 
     const products = await this.productModel.find({
       _id: {$in: dto.products},

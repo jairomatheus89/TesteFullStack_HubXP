@@ -40,19 +40,32 @@ let ProductsService = class ProductsService {
         return category;
     }
     async patchProduct(data) {
-        const categories = await this.categoryModel.find({
-            _id: { $in: data.categoryIds },
-        });
-        if (categories.length !== data.categoryIds.length) {
-            throw new common_1.NotFoundException("Uma ou mais categorias não existem...");
+        const dataUpdate = {};
+        if (data.categoryIds !== undefined) {
+            const categories = await this.categoryModel.find({
+                _id: { $in: data.categoryIds },
+            });
+            if (data.categoryIds.length == 0) {
+                throw new common_1.BadRequestException("O Produto deve ter pelo menos UMA categoria...");
+            }
+            if (categories.length !== data.categoryIds.length) {
+                throw new common_1.NotFoundException("Uma ou mais categorias não existem...");
+            }
+            dataUpdate.categoryIds = data.categoryIds;
         }
-        const product = await this.productModel.findByIdAndUpdate(data.id, {
-            name: data.name,
-            description: data.description,
-            price: data.price,
-            categoryIds: data.categoryIds,
-            imageUrl: data.imageUrl
-        }, { returnDocument: 'after' });
+        if (data.name !== undefined) {
+            dataUpdate.name = data.name;
+        }
+        if (data.description !== undefined) {
+            dataUpdate.description = data.description;
+        }
+        if (data.price !== undefined) {
+            dataUpdate.price = data.price;
+        }
+        if (data.imageUrl !== undefined) {
+            dataUpdate.imageUrl = data.imageUrl;
+        }
+        const product = await this.productModel.findByIdAndUpdate(data.id, dataUpdate, { returnDocument: 'after' });
         if (product == null) {
             throw new common_1.NotFoundException("Product já não existe mais...");
         }

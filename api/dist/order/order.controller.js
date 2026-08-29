@@ -52,7 +52,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], OrderController.prototype, "getOrder", null);
 __decorate([
-    (0, common_1.Patch)(),
+    (0, common_1.Put)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [patch_order_dto_1.OrderPatchDto]),

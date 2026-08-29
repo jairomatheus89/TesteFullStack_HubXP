@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
+//Intern Features
 import { ProductsModule } from './products/products.module';
 import { CategoryModule } from './category/category.module';
 import { OrderModule } from './order/order.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
@@ -17,9 +17,10 @@ import { OrderModule } from './order/order.module';
 
     ProductsModule,
     CategoryModule,
-    OrderModule
+    OrderModule,
+    DashboardModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

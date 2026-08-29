@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Put } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 
 //DTOs
@@ -23,7 +23,7 @@ export class CategoryController{
     return this.categoryService.getCategory(body);
   }
 
-  @Patch()
+  @Put()
   patchCategory(@Body() body: CategoryPatch){
     return this.categoryService.patchCategory(body);
   }

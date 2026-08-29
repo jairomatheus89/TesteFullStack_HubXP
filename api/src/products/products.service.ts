@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
@@ -40,23 +40,47 @@ export class ProductsService {
   }
 
   async patchProduct(data: ProductPatcher){
-    const categories = await this.categoryModel.find({
-      _id: {$in: data.categoryIds},
-    });
 
-    if(categories.length !== data.categoryIds.length){
-      throw new NotFoundException("Uma ou mais categorias não existem...");
+    const dataUpdate: any = {}
+
+    if(data.categoryIds !== undefined){
+      const categories = await this.categoryModel.find({
+        _id: {$in: data.categoryIds},
+      });
+
+      if(data.categoryIds.length == 0){
+        throw new BadRequestException("O Produto deve ter pelo menos UMA categoria...");
+      }
+
+      if(categories.length !== data.categoryIds.length){
+        throw new NotFoundException("Uma ou mais categorias não existem...");
+      }
+
+      dataUpdate.categoryIds = data.categoryIds;
     }
+
+    
+
+    if(data.name !== undefined){
+      dataUpdate.name = data.name;
+    }
+
+    if(data.description !== undefined){
+      dataUpdate.description = data.description;
+    }
+
+    if(data.price !== undefined){
+      dataUpdate.price = data.price;
+    }
+
+    if(data.imageUrl !== undefined){
+      dataUpdate.imageUrl = data.imageUrl;
+    }
+    
 
     const product = await this.productModel.findByIdAndUpdate(
       data.id,
-      {
-        name: data.name,
-        description: data.description,
-        price: data.price,
-        categoryIds: data.categoryIds,
-        imageUrl: data.imageUrl
-      },
+      dataUpdate,
       {returnDocument: 'after'}
     );
 

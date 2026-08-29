@@ -1,4 +1,4 @@
-import { IsArray, IsString, IsNotEmpty, IsNumber, IsMongoId } from "class-validator";
+import { IsArray, IsString, IsNotEmpty, IsNumber, IsMongoId, IsOptional } from "class-validator";
 
 export class ProductPatcher {
 
@@ -6,24 +6,30 @@ export class ProductPatcher {
   @IsMongoId()
   id!: string;
 
+
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
-  name!: string;
+  name?: string;
 
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
-  description!: string;
+  description?: string;
 
+  @IsOptional()
   @IsNotEmpty()
   @IsNumber()
-  price!: number;
+  price?: number;
 
+  @IsOptional()
   @IsArray()
   @IsNotEmpty()
   @IsMongoId({each: true})
-  categoryIds!: string[];
+  categoryIds?: string[];
 
+  @IsOptional()
   @IsNotEmpty()
   @IsString()
-  imageUrl!: string;
+  imageUrl?: string;
 }
