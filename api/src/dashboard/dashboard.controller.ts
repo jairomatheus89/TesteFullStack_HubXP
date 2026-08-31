@@ -1,5 +1,8 @@
-import { Body, Controller, Delete, Get, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Query } from "@nestjs/common";
 import { DashboardService } from "./dashboard.service";
+
+//DTOs
+import { DashboardFilterDto } from "./dto/dashboard-filter.dto";
 
 @Controller('dashboard')
 export class DashboardController{
@@ -8,19 +11,9 @@ export class DashboardController{
     private readonly dashboardService: DashboardService
   ){}
 
-  @Get('valortotal')
-  valorTotal(){
-    return this.dashboardService.valorTotalOrders();
-  }
-
-  @Get('valorMedio')
-  valorMedio(){
-    return this.dashboardService.valorMedioOrders();
-  }
-
-  @Get('totalPedidos')
-  totalPedidos(){
-    return this.dashboardService.totalOrders();
+  @Get()
+  valorTotal(@Query() filter: DashboardFilterDto){
+    return this.dashboardService.ordersAggregation(filter);
   }
 
 }

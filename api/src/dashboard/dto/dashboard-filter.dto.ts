@@ -1,16 +1,20 @@
-import { IsString, IsDate } from "class-validator";
+import { IsString, IsDateString, IsOptional } from "class-validator";
 
 export class DashboardFilterDto {
 
+  @IsOptional()
   @IsString()
   categoryId?: string;
 
+  @IsOptional()
   @IsString()
   productId?: string;
 
-  @IsDate()
-  startDate?: Date;
+  @IsOptional()
+  @IsDateString()
+  startDate?: string;
 
-  @IsDate()
-  endDate?: Date;
+  @IsOptional()
+  @IsDateString()
+  endDate?: string;
 }

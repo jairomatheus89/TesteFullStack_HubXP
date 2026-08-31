@@ -22,7 +22,7 @@ export declare class OrderService {
     } & {
         id: string;
     }>;
-    patchOrder(dto: OrderPatchDto): Promise<{
+    putOrder(dto: OrderPatchDto): Promise<{
         status: string;
         order: import("mongoose").Document<unknown, {}, Order, {}, import("mongoose").DefaultSchemaOptions> & Order & {
             _id: import("mongoose").Types.ObjectId;

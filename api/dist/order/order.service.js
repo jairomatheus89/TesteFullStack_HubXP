@@ -57,7 +57,7 @@ let OrderService = class OrderService {
         }
         return order;
     }
-    async patchOrder(dto) {
+    async putOrder(dto) {
         const products = await this.productModel.find({
             _id: { $in: dto.products },
         });
@@ -114,7 +114,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [patch_order_dto_1.OrderPatchDto]),
     __metadata("design:returntype", Promise)
-], OrderService.prototype, "patchOrder", null);
+], OrderService.prototype, "putOrder", null);
 __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

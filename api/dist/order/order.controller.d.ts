@@ -19,7 +19,7 @@ export declare class OrderController {
     } & {
         id: string;
     }>;
-    patchOrder(dto: OrderPatchDto): Promise<{
+    putOrder(dto: OrderPatchDto): Promise<{
         status: string;
         order: import("mongoose").Document<unknown, {}, import("./schema/order.schema").Order, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/order.schema").Order & {
             _id: import("mongoose").Types.ObjectId;

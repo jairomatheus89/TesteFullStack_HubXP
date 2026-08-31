@@ -29,8 +29,8 @@ let OrderController = class OrderController {
     getOrder(dto) {
         return this.orderService.getOrder(dto);
     }
-    patchOrder(dto) {
-        return this.orderService.patchOrder(dto);
+    putOrder(dto) {
+        return this.orderService.putOrder(dto);
     }
     removeOrder(dto) {
         return this.orderService.removeOrder(dto);
@@ -57,7 +57,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [patch_order_dto_1.OrderPatchDto]),
     __metadata("design:returntype", void 0)
-], OrderController.prototype, "patchOrder", null);
+], OrderController.prototype, "putOrder", null);
 __decorate([
     (0, common_1.Delete)(),
     __param(0, (0, common_1.Body)()),

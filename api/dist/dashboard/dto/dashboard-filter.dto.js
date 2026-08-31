@@ -19,19 +19,23 @@ class DashboardFilterDto {
 }
 exports.DashboardFilterDto = DashboardFilterDto;
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], DashboardFilterDto.prototype, "categoryId", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], DashboardFilterDto.prototype, "productId", void 0);
 __decorate([
-    (0, class_validator_1.IsDate)(),
-    __metadata("design:type", Date)
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
 ], DashboardFilterDto.prototype, "startDate", void 0);
 __decorate([
-    (0, class_validator_1.IsDate)(),
-    __metadata("design:type", Date)
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
 ], DashboardFilterDto.prototype, "endDate", void 0);
 //# sourceMappingURL=dashboard-filter.dto.js.map

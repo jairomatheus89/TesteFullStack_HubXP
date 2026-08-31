@@ -8,44 +8,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DashboardController = void 0;
 const common_1 = require("@nestjs/common");
 const dashboard_service_1 = require("./dashboard.service");
+const dashboard_filter_dto_1 = require("./dto/dashboard-filter.dto");
 let DashboardController = class DashboardController {
     dashboardService;
     constructor(dashboardService) {
         this.dashboardService = dashboardService;
     }
-    valorTotal() {
-        return this.dashboardService.valorTotalOrders();
-    }
-    valorMedio() {
-        return this.dashboardService.valorMedioOrders();
-    }
-    totalPedidos() {
-        return this.dashboardService.totalOrders();
+    valorTotal(filter) {
+        return this.dashboardService.ordersAggregation(filter);
     }
 };
 exports.DashboardController = DashboardController;
 __decorate([
-    (0, common_1.Get)('valortotal'),
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [dashboard_filter_dto_1.DashboardFilterDto]),
     __metadata("design:returntype", void 0)
 ], DashboardController.prototype, "valorTotal", null);
-__decorate([
-    (0, common_1.Get)('valorMedio'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], DashboardController.prototype, "valorMedio", null);
-__decorate([
-    (0, common_1.Get)('totalPedidos'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], DashboardController.prototype, "totalPedidos", null);
 exports.DashboardController = DashboardController = __decorate([
     (0, common_1.Controller)('dashboard'),
     __metadata("design:paramtypes", [dashboard_service_1.DashboardService])

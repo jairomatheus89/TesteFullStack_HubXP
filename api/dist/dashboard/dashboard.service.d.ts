@@ -1,15 +1,12 @@
 import { Model } from "mongoose";
 import { Order } from "../order/schema/order.schema";
+import { DashboardFilterDto } from "./dto/dashboard-filter.dto";
 export declare class DashboardService {
     private readonly orderModel;
     constructor(orderModel: Model<Order>);
-    valorTotalOrders(): Promise<{
+    ordersAggregation(filter: DashboardFilterDto): Promise<{
         valorTotal: any;
-    }>;
-    valorMedioOrders(): Promise<{
-        valorMedio: any;
-    }>;
-    totalOrders(): Promise<{
+        valorMedio: number;
         totalPedidos: any;
     }>;
 }
