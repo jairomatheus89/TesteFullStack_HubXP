@@ -4,13 +4,13 @@ import { Category } from "../../category/schema/category.schema";
 
 @Schema()
 export class Product{
-  @Prop({required: true})
+  @Prop({required: true, type: String})
   name!: string;
 
-  @Prop({required: true})
+  @Prop({required: true, type: String})
   description!: string;
 
-  @Prop({required: true})
+  @Prop({required: true, type: Number})
   price!: number;
 
   @Prop({
@@ -19,8 +19,8 @@ export class Product{
   })
   categoryIds!: Types.ObjectId[];
 
-  @Prop()
-  imageUrl!: string;
+  @Prop({type: String})
+  imageUrl?: string;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

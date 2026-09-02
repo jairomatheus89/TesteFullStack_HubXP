@@ -1,0 +1,9 @@
+service: hubxp-lambda
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+functions:
+  hello: 
+    handler: src/helloHandler.handler

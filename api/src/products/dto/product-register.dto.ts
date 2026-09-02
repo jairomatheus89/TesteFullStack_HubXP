@@ -21,5 +21,5 @@ export class ProductRegister {
 
   @IsNotEmpty()
   @IsString()
-  imageUrl!: string;
+  imageUrl?: string;
 }

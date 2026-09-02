@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException  } from "@nestjs/common";
+import { BadRequestException, ConflictException, Injectable, NotFoundException  } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model, trusted } from "mongoose";
+import { Model, trusted, Types } from "mongoose";
 
 //Schema
 import { Category } from "./schema/category.schema";
+import { Product } from "../products/schema/products.schema";
 
 //DTOs
 import { CategoryRegister } from "./dto/CategoryRegister.dto";
@@ -16,6 +17,8 @@ export class CategoryService {
   constructor(
     @InjectModel(Category.name)
     private readonly categoryModel: Model<Category>,
+    @InjectModel(Product.name)
+    private readonly productModel: Model<Product>
   ){}
 
   async registerCategory(data: CategoryRegister) {
@@ -55,7 +58,28 @@ export class CategoryService {
   }
 
   async removeCategory(data: CategoryId){
-    const category = await this.categoryModel.findByIdAndDelete(data.id, {returnDocument: 'after'});
+
+    if(!Types.ObjectId.isValid(data.id)){
+      throw new BadRequestException("Id de categoria invalido!");
+    }
+
+    const categoryId = new Types.ObjectId(data.id);
+
+    const productDependsExclusiveOnCategory = await this.productModel.exists({
+      categoryIds:[categoryId],
+    });
+
+    if(productDependsExclusiveOnCategory){
+      throw new ConflictException("Não é possivel deletar essa categoria pois existem produtos que dependem exclusivamente dela.");
+    }
+
+    await this.productModel.updateMany(
+      {categoryIds: categoryId},
+      {$pull: {categoryIds: categoryId}}
+    );
+
+
+    const category = await this.categoryModel.findByIdAndDelete(categoryId, {returnDocument: 'after'});
     if(category == null){
       return {
         status: "Categoria não encontrada ou inexistente!",

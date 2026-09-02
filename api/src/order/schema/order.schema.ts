@@ -23,7 +23,7 @@ export class Order{
   })
   products!: Types.ObjectId[];
 
-  @Prop({required: true})
+  @Prop({required: true, type: Number})
   total!: number;
 
 }

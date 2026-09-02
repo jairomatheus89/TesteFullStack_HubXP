@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/helloHandler.ts"],
+  "sourcesContent": ["export const handler = () => {\r\n  return \"Hello from Lambda!\";\r\n}"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,IAAM,UAAU,MAAM;AAC3B,SAAO;AACT;",
+  "names": []
+}
