@@ -4,6 +4,20 @@ provider:
   name: aws
   runtime: nodejs20.x
 
+plugins:
+  - serverless-offline
+
 functions:
   hello: 
-    handler: src/helloHandler.handler
+    handler: src/handlers/helloHandler.handler
+
+  orderCreated:
+    handler: src/handlers/orderCreatedHandler.handler
+    events:
+      - httpApi:
+          method: POST
+          path: /order-created
+
+custom:
+  serverless-offline:
+    httpPort: 3001

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../src/handlers/orderCreatedHandler.ts"],
+  "sourcesContent": ["import { OrderCreatedEvent } from \"../events/orderCreatedEvent\";\r\n\r\nexport const handler = async (event: OrderCreatedEvent)  => {\r\n  console.log(\"Order Created:\");\r\n  console.log(event);\r\n\r\n  return {\r\n    processed: true\r\n  }\r\n}"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEO,IAAM,UAAU,OAAO,UAA8B;AAC1D,UAAQ,IAAI,gBAAgB;AAC5B,UAAQ,IAAI,KAAK;AAEjB,SAAO;AAAA,IACL,WAAW;AAAA,EACb;AACF;",
+  "names": []
+}

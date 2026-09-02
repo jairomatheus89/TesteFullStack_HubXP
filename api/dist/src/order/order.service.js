@@ -48,7 +48,22 @@ let OrderService = class OrderService {
             products: products,
             total: total
         });
-        return order.save();
+        const savedOrder = await order.save();
+        const createdOrderEvent = {
+            type: "ORDER_CREATED",
+            orderId: savedOrder._id.toString(),
+            total: savedOrder.total
+        };
+        await fetch("http://localhost:3001/order-created", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(createdOrderEvent)
+        });
+        console.log("EVENTO PARA LAMBDA:");
+        console.log(createdOrderEvent);
+        return savedOrder;
     }
     async getOrder(dto) {
         const order = await this.orderModel.findById(dto.orderId);

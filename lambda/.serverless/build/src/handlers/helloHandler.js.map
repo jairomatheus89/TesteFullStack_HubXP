@@ -1,6 +1,6 @@
 {
   "version": 3,
-  "sources": ["../../../src/helloHandler.ts"],
+  "sources": ["../../../../src/handlers/helloHandler.ts"],
   "sourcesContent": ["export const handler = (event: unknown) => {\r\n\r\n  console.log(\"EVENT: \", event);\r\n\r\n  return \"Hello from Lambda!\";\r\n}"],
   "mappings": ";;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,IAAM,UAAU,CAAC,UAAmB;AAEzC,UAAQ,IAAI,WAAW,KAAK;AAE5B,SAAO;AACT;",
   "names": []

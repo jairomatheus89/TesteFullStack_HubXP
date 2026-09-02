@@ -11,6 +11,9 @@ import { OrderCreateDto } from "./dto/create-order.dto";
 import { OrderIdDto } from "./dto/get-order.dto";
 import { OrderPatchDto } from "./dto/patch-order.dto";
 
+//interface
+import { OrderCreatedEvent } from "./interfaces/orderCreated-lambda";
+
 
 @Injectable()
 export class OrderService {
@@ -50,7 +53,27 @@ export class OrderService {
         total: total
       }
     );
-    return order.save();
+
+    const savedOrder = await order.save();
+
+    const createdOrderEvent: OrderCreatedEvent = {
+      type: "ORDER_CREATED",
+      orderId: savedOrder._id.toString(),
+      total: savedOrder.total
+    }
+
+    await fetch("http://localhost:3001/order-created", {
+      method: "POST",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(createdOrderEvent)
+    });
+
+    console.log("EVENTO PARA LAMBDA:");
+    console.log(createdOrderEvent);
+
+    return savedOrder;
   }
 
   async getOrder(@Body() dto: OrderIdDto){

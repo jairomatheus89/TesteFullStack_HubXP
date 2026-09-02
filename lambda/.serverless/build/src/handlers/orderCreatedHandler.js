@@ -17,18 +17,21 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// src/helloHandler.ts
-var helloHandler_exports = {};
-__export(helloHandler_exports, {
+// src/handlers/orderCreatedHandler.ts
+var orderCreatedHandler_exports = {};
+__export(orderCreatedHandler_exports, {
   handler: () => handler
 });
-module.exports = __toCommonJS(helloHandler_exports);
-var handler = (event) => {
-  console.log("EVENT: ", event);
-  return "Hello from Lambda!";
+module.exports = __toCommonJS(orderCreatedHandler_exports);
+var handler = async (event) => {
+  console.log("Order Created:");
+  console.log(event);
+  return {
+    processed: true
+  };
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   handler
 });
-//# sourceMappingURL=helloHandler.js.map
+//# sourceMappingURL=orderCreatedHandler.js.map
