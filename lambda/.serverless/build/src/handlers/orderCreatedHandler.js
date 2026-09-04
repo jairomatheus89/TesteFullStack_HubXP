@@ -24,10 +24,17 @@ __export(orderCreatedHandler_exports, {
 });
 module.exports = __toCommonJS(orderCreatedHandler_exports);
 var handler = async (event) => {
-  console.log("Order Created:");
-  console.log(event);
+  const orderCreatedEvent = JSON.parse(event.body);
+  console.log(
+    `Processando evento ${orderCreatedEvent.type} para Order ${orderCreatedEvent.orderId}`
+  );
+  console.log(`Total da Order: R$ ${orderCreatedEvent.total}`);
   return {
-    processed: true
+    statusCode: 200,
+    body: JSON.stringify({
+      processed: true,
+      orderId: orderCreatedEvent.orderId
+    })
   };
 };
 // Annotate the CommonJS export names for ESM import in node:

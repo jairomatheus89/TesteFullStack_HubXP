@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../../../src/handlers/orderCreatedHandler.ts"],
-  "sourcesContent": ["import { OrderCreatedEvent } from \"../events/orderCreatedEvent\";\r\n\r\nexport const handler = async (event: OrderCreatedEvent)  => {\r\n  console.log(\"Order Created:\");\r\n  console.log(event);\r\n\r\n  return {\r\n    processed: true\r\n  }\r\n}"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEO,IAAM,UAAU,OAAO,UAA8B;AAC1D,UAAQ,IAAI,gBAAgB;AAC5B,UAAQ,IAAI,KAAK;AAEjB,SAAO;AAAA,IACL,WAAW;AAAA,EACb;AACF;",
+  "sourcesContent": ["import { OrderCreatedEvent, HttpEvent } from \"../events/orderCreatedEvent\";\r\n\r\nexport const handler = async (event: HttpEvent)  => {\r\n\r\n  const orderCreatedEvent: OrderCreatedEvent = JSON.parse(event.body);\r\n\r\n  console.log(\r\n    `Processando evento ${orderCreatedEvent.type} para Order ${orderCreatedEvent.orderId}`\r\n  );\r\n\r\n  console.log(`Total da Order: R$ ${orderCreatedEvent.total}`);\r\n\r\n  return {\r\n    statusCode: 200,\r\n    body: JSON.stringify({\r\n      processed: true,\r\n      orderId: orderCreatedEvent.orderId\r\n    })\r\n  };\r\n}"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAEO,IAAM,UAAU,OAAO,UAAsB;AAElD,QAAM,oBAAuC,KAAK,MAAM,MAAM,IAAI;AAElE,UAAQ;AAAA,IACN,sBAAsB,kBAAkB,IAAI,eAAe,kBAAkB,OAAO;AAAA,EACtF;AAEA,UAAQ,IAAI,sBAAsB,kBAAkB,KAAK,EAAE;AAE3D,SAAO;AAAA,IACL,YAAY;AAAA,IACZ,MAAM,KAAK,UAAU;AAAA,MACnB,WAAW;AAAA,MACX,SAAS,kBAAkB;AAAA,IAC7B,CAAC;AAAA,EACH;AACF;",
   "names": []
 }
