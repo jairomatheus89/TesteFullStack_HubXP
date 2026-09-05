@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import { Box, colors } from '@mui/material';
+import { Box } from '@mui/material';
 
 import Header from '../components/header/Header';
 import Sidebar from '../components/sidebar/Sidebar';
 
 const drawerWidth = 240;
 
-function Layout({children}: {children: React.ReactNode}){
+function Layout({children, setdarkmode}: {children: React.ReactNode, setdarkmode: React.Dispatch<React.SetStateAction<boolean>>}){
 
   const [ open, setOpen] = useState(false);
 
@@ -17,7 +17,7 @@ function Layout({children}: {children: React.ReactNode}){
 
   return(
     <Box sx={{display: 'flex'}}>
-      <Header onMenuClick={handleDrawerToggle}/>
+      <Header onMenuClick={handleDrawerToggle} setDarkmode={setdarkmode}/>
       <Sidebar open={open} drawerWidth={drawerWidth}/>
 
       <Box 

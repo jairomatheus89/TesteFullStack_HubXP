@@ -34,7 +34,7 @@ async function seed() {
             categoryIds: faker_1.faker.helpers.arrayElements(categoriesCreated.map(category => category._id), { min: 1, max: 3 }),
         }));
         const productsCreated = await productModel.insertMany(products);
-        const orders = Array.from({ length: 100 }, () => {
+        const orders = Array.from({ length: 10 }, () => {
             const selectedProducts = faker_1.faker.helpers.arrayElements(productsCreated, { min: 1, max: 6 });
             const total = selectedProducts.reduce((sum, product) => sum + product.price, 0);
             return {

@@ -4,7 +4,6 @@ import { faker } from "@faker-js/faker";
 import { Category, CategorySchema } from "../src/category/schema/category.schema";
 import { Product, ProductSchema } from "../src/products/schema/products.schema";
 import { Order, OrderSchema } from "../src/order/schema/order.schema";
-import { CategoryId } from "../src/category/dto/category-by-id.dto";
 
 const categoryModel = mongoose.model(Category.name, CategorySchema);
 const productModel = mongoose.model(Product.name, ProductSchema);
@@ -42,7 +41,7 @@ async function seed(){
     }));
     const productsCreated = await productModel.insertMany(products);
 
-    const orders = Array.from({length: 100}, () => {
+    const orders = Array.from({length: 10}, () => {
 
       const selectedProducts = faker.helpers.arrayElements(
         productsCreated,

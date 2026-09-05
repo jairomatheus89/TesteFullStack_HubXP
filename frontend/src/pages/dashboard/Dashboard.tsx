@@ -1,74 +1,86 @@
 import { useState, useEffect } from 'react';
-import { Box, colors, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 
 import { dashboardService } from '@/services/dashboard-service';
-
 import type { DashboardMetrics } from '@/types/dashboard';
 
+import { Refresh } from "@mui/icons-material";
+
 function Dashboard(){
+
   const [dashboardMet, setDashboardMet] = useState<DashboardMetrics>();
 
-  useEffect(() => {
-    const loadMetrics = async () => {
+  const reloadMetrics = async () => {
       const metricsResponse = await dashboardService.getMetrics();
 
       setDashboardMet(metricsResponse);
     }
 
-    loadMetrics();
+  useEffect(() => {
+    const firstLoad = async () => {
+      await reloadMetrics();
+    }
+
+    firstLoad();
   }, []);
 
   return(
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'center',
-        gap: 20,
-        //background: colors.blue[400],
-
-        "& > .kpi-card": {
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 6,
+        "& .cardsBox":{
+          display:'flex',
+          gap: 20
+        },
+        "& .kpi-card": {
           display: 'flex',
           flexDirection: 'column',
-          background: colors.blue[400],
+          backgroundColor: 'primary.main',
           p: 2,
           borderRadius: 2,
           alignItems: 'center',
           "& .titleCard":{
-            color: 'common.white',
             fontSize: 26
           },
           "& .cardValue":{
-            color: 'common.black',
             fontSize: 20
           }
         },
       }}
     >
-      <Box className='kpi-card'>
-        <Typography className='titleCard' variant='h6'>
-          Valor Total
-        </Typography>
-        <Typography className='cardValue' variant='subtitle1'>
-          R$:{dashboardMet?.valorTotal}
-        </Typography>
+      <Typography sx={{fontSize: 28}}>ORDERS</Typography>
+      <Box className='cardsBox'>
+        <Box className='kpi-card'>
+          <Typography className='titleCard' variant='h6'>
+            Valor Total
+          </Typography>
+          <Typography className='cardValue' variant='subtitle1'>
+            R$:{dashboardMet?.valorTotal}
+          </Typography>
+        </Box>
+        <Box className='kpi-card'>
+          <Typography className='titleCard' variant='h6'>
+            Valor Medio
+          </Typography>
+          <Typography className='cardValue' variant='subtitle1'>
+            R$:{dashboardMet?.valorMedio}
+          </Typography>
+        </Box>
+        <Box className='kpi-card'>
+          <Typography className='titleCard' variant='h6'>
+            Total Pedidos
+          </Typography>
+          <Typography className='cardValue' variant='subtitle1'>
+            {dashboardMet?.totalPedidos}
+          </Typography>
+        </Box>
       </Box>
-      <Box className='kpi-card'>
-        <Typography className='titleCard' variant='h6'>
-          Valor Medio
-        </Typography>
-        <Typography className='cardValue' variant='subtitle1'>
-          R$:{dashboardMet?.valorMedio}
-        </Typography>
-      </Box>
-
-      <Box className='kpi-card'>
-        <Typography className='titleCard' variant='h6'>
-          Total Pedidos
-        </Typography>
-        <Typography className='cardValue' variant='subtitle1'>
-          {dashboardMet?.totalPedidos}
-        </Typography>
-      </Box>
+      <IconButton onClick={() => reloadMetrics()}>
+        <Refresh/>
+      </IconButton>
     </Box>
   );
 }

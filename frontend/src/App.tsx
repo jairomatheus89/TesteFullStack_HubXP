@@ -1,12 +1,23 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider, CssBaseline } from '@mui/material'
 import Layout from './layouts/Layout'
+
+import { createThemeApp } from './themes/theme'
 
 //pages
 import Dashboard from './pages/dashboard/Dashboard';
+import { useState } from 'react';
 
 function App() {
+
+  const [darkmode, setDarkmode] = useState(false);
+
+  const theme = createThemeApp(darkmode);
+
   return (
-      <Layout>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Layout setdarkmode={setDarkmode}>
         <Routes>
           <Route
             path='/'
@@ -35,6 +46,7 @@ function App() {
 
         </Routes>
       </Layout>
+    </ThemeProvider>
   );
 }
 
