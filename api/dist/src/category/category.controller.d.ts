@@ -14,13 +14,20 @@ export declare class CategoryController {
     }) | {
         status: string;
     }>;
-    getCategory(body: CategoryId): Promise<(import("mongoose").Document<unknown, {}, import("./schema/category.schema").Category, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/category.schema").Category & {
+    getCategory(body: CategoryId): Promise<import("mongoose").Document<unknown, {}, import("./schema/category.schema").Category, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/category.schema").Category & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
     } & {
         id: string;
-    }) | null>;
+    }>;
+    getAllCategory(): Promise<(import("mongoose").Document<unknown, {}, import("./schema/category.schema").Category, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/category.schema").Category & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    } & {
+        id: string;
+    })[]>;
     patchCategory(body: CategoryPatch): Promise<import("mongoose").Document<unknown, {}, import("./schema/category.schema").Category, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/category.schema").Category & {
         _id: import("mongoose").Types.ObjectId;
     } & {

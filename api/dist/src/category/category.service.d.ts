@@ -17,13 +17,13 @@ export declare class CategoryService {
     }) | {
         status: string;
     }>;
-    getCategory(data: CategoryId): Promise<(import("mongoose").Document<unknown, {}, Category, {}, import("mongoose").DefaultSchemaOptions> & Category & {
+    getCategory(data: CategoryId): Promise<import("mongoose").Document<unknown, {}, Category, {}, import("mongoose").DefaultSchemaOptions> & Category & {
         _id: Types.ObjectId;
     } & {
         __v: number;
     } & {
         id: string;
-    }) | null>;
+    }>;
     patchCategory(data: CategoryPatch): Promise<import("mongoose").Document<unknown, {}, Category, {}, import("mongoose").DefaultSchemaOptions> & Category & {
         _id: Types.ObjectId;
     } & {
@@ -44,4 +44,11 @@ export declare class CategoryService {
             id: string;
         };
     }>;
+    allCategories(): Promise<(import("mongoose").Document<unknown, {}, Category, {}, import("mongoose").DefaultSchemaOptions> & Category & {
+        _id: Types.ObjectId;
+    } & {
+        __v: number;
+    } & {
+        id: string;
+    })[]>;
 }

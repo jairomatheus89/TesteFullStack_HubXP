@@ -68,9 +68,12 @@ let OrderService = class OrderService {
     async getOrder(dto) {
         const order = await this.orderModel.findById(dto.orderId);
         if (!order) {
-            throw new common_1.NotFoundException("Ordem ja nao existe mais...");
+            throw new common_1.BadRequestException("Order ID nao existente");
         }
         return order;
+    }
+    async allOrders() {
+        return this.orderModel.find().populate('products', 'name');
     }
     async putOrder(dto) {
         const products = await this.productModel.find({

@@ -15,13 +15,13 @@ export declare class ProductsService {
     } & {
         id: string;
     }>;
-    getProduct(data: ProductId): Promise<(import("mongoose").Document<unknown, {}, Product, {}, import("mongoose").DefaultSchemaOptions> & Product & {
+    getProduct(data: ProductId): Promise<import("mongoose").Document<unknown, {}, Product, {}, import("mongoose").DefaultSchemaOptions> & Product & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
     } & {
         id: string;
-    }) | null>;
+    }>;
     patchProduct(data: ProductPatcher): Promise<{
         status: string;
         product: import("mongoose").Document<unknown, {}, Product, {}, import("mongoose").DefaultSchemaOptions> & Product & {
@@ -42,4 +42,11 @@ export declare class ProductsService {
             id: string;
         };
     }>;
+    allProducts(): Promise<(import("mongoose").Document<unknown, {}, Product, {}, import("mongoose").DefaultSchemaOptions> & Product & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    } & {
+        id: string;
+    })[]>;
 }

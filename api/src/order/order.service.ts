@@ -81,11 +81,15 @@ export class OrderService {
     const order = await this.orderModel.findById(dto.orderId);
 
     if(!order){
-      throw new NotFoundException("Ordem ja nao existe mais...");
+      throw new BadRequestException("Order ID nao existente");
     }
 
     return order;
 
+  }
+
+  async allOrders(){
+    return this.orderModel.find().populate('products', 'name');
   }
 
   async putOrder(@Body() dto: OrderPatchDto){

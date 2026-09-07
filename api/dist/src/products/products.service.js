@@ -36,8 +36,11 @@ let ProductsService = class ProductsService {
         return product.save();
     }
     async getProduct(data) {
-        const category = await this.productModel.findById(data.id);
-        return category;
+        const product = await this.productModel.findById(data.id);
+        if (!product) {
+            throw new common_1.BadRequestException("Product ID nao existente");
+        }
+        return product;
     }
     async patchProduct(data) {
         const dataUpdate = {};
@@ -83,6 +86,9 @@ let ProductsService = class ProductsService {
             status: "Produto Deletado!",
             produto: product
         };
+    }
+    async allProducts() {
+        return this.productModel.find().populate('categoryIds', 'name');
     }
 };
 exports.ProductsService = ProductsService;

@@ -1,11 +1,14 @@
 import { Drawer, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 type SidebarProps = {
   open: boolean;
-  drawerWidth: number
+  drawerWidth: number;
 }
 
 function Sidebar(sidebarProps: SidebarProps){
+
+  const navigate = useNavigate();
 
   return(
     <Drawer
@@ -34,25 +37,25 @@ function Sidebar(sidebarProps: SidebarProps){
       <List sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate("/dashboard")}>
             <ListItemText primary="Dashboard"/>
           </ListItemButton>
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate("/orders")}>
             <ListItemText primary="Orders"/>
           </ListItemButton>
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate("/products")}>
             <ListItemText primary="Products"/>
           </ListItemButton>
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate("/categories")}>
             <ListItemText primary="Categories"/>
           </ListItemButton>
         </ListItem>

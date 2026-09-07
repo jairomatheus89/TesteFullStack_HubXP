@@ -12,13 +12,20 @@ export declare class ProductsController {
     } & {
         id: string;
     }>;
-    getProduct(body: ProductId): Promise<(import("mongoose").Document<unknown, {}, import("./schema/products.schema").Product, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/products.schema").Product & {
+    getProduct(body: ProductId): Promise<import("mongoose").Document<unknown, {}, import("./schema/products.schema").Product, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/products.schema").Product & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
     } & {
         id: string;
-    }) | null>;
+    }>;
+    getAllProduct(): Promise<(import("mongoose").Document<unknown, {}, import("./schema/products.schema").Product, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/products.schema").Product & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    } & {
+        id: string;
+    })[]>;
     patchProduct(body: ProductPatcher): Promise<{
         status: string;
         product: import("mongoose").Document<unknown, {}, import("./schema/products.schema").Product, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/products.schema").Product & {

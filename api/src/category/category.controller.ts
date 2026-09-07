@@ -23,6 +23,11 @@ export class CategoryController{
     return this.categoryService.getCategory(body);
   }
 
+  @Get('all')
+  getAllCategory(){
+    return this.categoryService.allCategories();
+  }
+
   @Put()
   patchCategory(@Body() body: CategoryPatch){
     return this.categoryService.patchCategory(body);

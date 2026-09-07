@@ -33,7 +33,7 @@ function Header({ onMenuClick, setDarkmode }: HeaderProps){
             <MenuIcon/>
           </IconButton>
 
-          <Typography variant="h5">
+          <Typography variant="h5" sx={{userSelect: 'none'}}>
             HubXP
           </Typography>
 

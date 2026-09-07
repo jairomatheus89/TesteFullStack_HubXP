@@ -29,6 +29,9 @@ let ProductsController = class ProductsController {
     getProduct(body) {
         return this.productsService.getProduct(body);
     }
+    getAllProduct() {
+        return this.productsService.allProducts();
+    }
     patchProduct(body) {
         return this.productsService.patchProduct(body);
     }
@@ -51,6 +54,12 @@ __decorate([
     __metadata("design:paramtypes", [product_by_id_dto_1.ProductId]),
     __metadata("design:returntype", void 0)
 ], ProductsController.prototype, "getProduct", null);
+__decorate([
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ProductsController.prototype, "getAllProduct", null);
 __decorate([
     (0, common_1.Patch)(),
     __param(0, (0, common_1.Body)()),

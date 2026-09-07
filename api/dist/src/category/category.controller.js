@@ -29,6 +29,9 @@ let CategoryController = class CategoryController {
     getCategory(body) {
         return this.categoryService.getCategory(body);
     }
+    getAllCategory() {
+        return this.categoryService.allCategories();
+    }
     patchCategory(body) {
         return this.categoryService.patchCategory(body);
     }
@@ -51,6 +54,12 @@ __decorate([
     __metadata("design:paramtypes", [category_by_id_dto_1.CategoryId]),
     __metadata("design:returntype", void 0)
 ], CategoryController.prototype, "getCategory", null);
+__decorate([
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], CategoryController.prototype, "getAllCategory", null);
 __decorate([
     (0, common_1.Put)(),
     __param(0, (0, common_1.Body)()),

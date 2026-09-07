@@ -35,8 +35,12 @@ export class ProductsService {
   }
 
   async getProduct(data: ProductId){
-    const category = await this.productModel.findById(data.id);
-    return category;
+    const product = await this.productModel.findById(data.id);
+    
+    if(!product){
+      throw new BadRequestException("Product ID nao existente");
+    }
+    return product;
   }
 
   async patchProduct(data: ProductPatcher){
@@ -105,5 +109,9 @@ export class ProductsService {
       status: "Produto Deletado!",
       produto: product
     }
+  }
+
+  async allProducts(){
+    return this.productModel.find().populate('categoryIds', 'name');
   }
 }

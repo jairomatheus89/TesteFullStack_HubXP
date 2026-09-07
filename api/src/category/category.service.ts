@@ -39,6 +39,10 @@ export class CategoryService {
 
   async getCategory(data: CategoryId){
     const category = await this.categoryModel.findById(data.id);
+
+    if(!category){
+      throw new BadRequestException("Category ID nao existente");
+    }
     return category;
   }
 
@@ -70,7 +74,7 @@ export class CategoryService {
     });
 
     if(productDependsExclusiveOnCategory){
-      throw new ConflictException("Não é possivel deletar essa categoria pois existem produtos que dependem exclusivamente dela.");
+      throw new ConflictException("Não é possivel deletar essa categoria, pois existem produtos que dependem exclusivamente dela!");
     }
 
     await this.productModel.updateMany(
@@ -89,5 +93,9 @@ export class CategoryService {
       status: "Categoria deletada!",
       categoria: category
     };
+  }
+
+  async allCategories(){
+    return await this.categoryModel.find();
   }
 }

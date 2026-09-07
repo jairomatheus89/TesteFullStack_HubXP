@@ -33,7 +33,8 @@ function Dashboard(){
         gap: 6,
         "& .cardsBox":{
           display:'flex',
-          gap: 20
+          justifyContent: 'center',
+          gap: 10
         },
         "& .kpi-card": {
           display: 'flex',
@@ -42,6 +43,8 @@ function Dashboard(){
           p: 2,
           borderRadius: 2,
           alignItems: 'center',
+          minWidth: 190,
+          maxWidth: 240,
           "& .titleCard":{
             fontSize: 26
           },
@@ -51,7 +54,7 @@ function Dashboard(){
         },
       }}
     >
-      <Typography sx={{fontSize: 28}}>ORDERS</Typography>
+      <Typography sx={{fontSize: 28, marginBottom: 6}}>Dashboard</Typography>
       <Box className='cardsBox'>
         <Box className='kpi-card'>
           <Typography className='titleCard' variant='h6'>

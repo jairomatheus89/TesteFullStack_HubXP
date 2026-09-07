@@ -24,6 +24,11 @@ export class OrderController{
     return this.orderService.getOrder(dto);
   }
 
+  @Get('all')
+  getAllOrder(){
+    return this.orderService.allOrders();
+  }
+
   @Put()
   putOrder(@Body() dto: OrderPatchDto){
     return this.orderService.putOrder(dto);

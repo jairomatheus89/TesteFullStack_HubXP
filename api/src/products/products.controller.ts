@@ -23,6 +23,11 @@ export class ProductsController{
     return this.productsService.getProduct(body);
   }
 
+  @Get('all')
+  getAllProduct(){
+    return this.productsService.allProducts();
+  }
+
   @Patch()
   patchProduct(@Body() body: ProductPatcher){
     return this.productsService.patchProduct(body);

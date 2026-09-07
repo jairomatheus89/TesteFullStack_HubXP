@@ -22,6 +22,13 @@ export declare class OrderService {
     } & {
         id: string;
     }>;
+    allOrders(): Promise<(import("mongoose").Document<unknown, {}, Order, {}, import("mongoose").DefaultSchemaOptions> & Order & {
+        _id: import("mongoose").Types.ObjectId;
+    } & {
+        __v: number;
+    } & {
+        id: string;
+    })[]>;
     putOrder(dto: OrderPatchDto): Promise<{
         status: string;
         order: import("mongoose").Document<unknown, {}, Order, {}, import("mongoose").DefaultSchemaOptions> & Order & {

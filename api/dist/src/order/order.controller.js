@@ -29,6 +29,9 @@ let OrderController = class OrderController {
     getOrder(dto) {
         return this.orderService.getOrder(dto);
     }
+    getAllOrder() {
+        return this.orderService.allOrders();
+    }
     putOrder(dto) {
         return this.orderService.putOrder(dto);
     }
@@ -51,6 +54,12 @@ __decorate([
     __metadata("design:paramtypes", [get_order_dto_1.OrderIdDto]),
     __metadata("design:returntype", void 0)
 ], OrderController.prototype, "getOrder", null);
+__decorate([
+    (0, common_1.Get)('all'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], OrderController.prototype, "getAllOrder", null);
 __decorate([
     (0, common_1.Put)(),
     __param(0, (0, common_1.Body)()),

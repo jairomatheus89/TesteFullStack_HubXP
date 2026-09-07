@@ -1,12 +1,17 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, CssBaseline } from '@mui/material'
-import Layout from './layouts/Layout'
-
+import { useState } from 'react';
 import { createThemeApp } from './themes/theme'
+
+//Components
+import Layout from './layouts/Layout'
 
 //pages
 import Dashboard from './pages/dashboard/Dashboard';
-import { useState } from 'react';
+import CategoryPage from './pages/categories/Category';
+import ProductPage from './pages/products/Product';
+import OrderPage from './pages/orders/Order';
+
 
 function App() {
 
@@ -31,17 +36,17 @@ function App() {
 
           <Route
             path='/orders'
-            element={<div>Orders</div>}
+            element={<OrderPage/>}
           />
 
           <Route
             path='/products'
-            element={<div>Products</div>}
+            element={<ProductPage/>}
           />
 
           <Route
             path='/categories'
-            element={<div>Categories</div>}
+            element={<CategoryPage/>}
           />
 
         </Routes>
