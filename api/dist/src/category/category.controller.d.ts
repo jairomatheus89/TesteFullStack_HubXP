@@ -5,14 +5,12 @@ import { CategoryPatch } from "./dto/category-update.dto";
 export declare class CategoryController {
     private readonly categoryService;
     constructor(categoryService: CategoryService);
-    registerCategory(body: CategoryRegister): Promise<(import("mongoose").Document<unknown, {}, import("./schema/category.schema").Category, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/category.schema").Category & {
+    registerCategory(body: CategoryRegister): Promise<import("mongoose").Document<unknown, {}, import("./schema/category.schema").Category, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/category.schema").Category & {
         _id: import("mongoose").Types.ObjectId;
     } & {
         __v: number;
     } & {
         id: string;
-    }) | {
-        status: string;
     }>;
     getCategory(body: CategoryId): Promise<import("mongoose").Document<unknown, {}, import("./schema/category.schema").Category, {}, import("mongoose").DefaultSchemaOptions> & import("./schema/category.schema").Category & {
         _id: import("mongoose").Types.ObjectId;

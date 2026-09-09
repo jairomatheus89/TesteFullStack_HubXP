@@ -8,14 +8,12 @@ export declare class CategoryService {
     private readonly categoryModel;
     private readonly productModel;
     constructor(categoryModel: Model<Category>, productModel: Model<Product>);
-    registerCategory(data: CategoryRegister): Promise<(import("mongoose").Document<unknown, {}, Category, {}, import("mongoose").DefaultSchemaOptions> & Category & {
+    registerCategory(data: CategoryRegister): Promise<import("mongoose").Document<unknown, {}, Category, {}, import("mongoose").DefaultSchemaOptions> & Category & {
         _id: Types.ObjectId;
     } & {
         __v: number;
     } & {
         id: string;
-    }) | {
-        status: string;
     }>;
     getCategory(data: CategoryId): Promise<import("mongoose").Document<unknown, {}, Category, {}, import("mongoose").DefaultSchemaOptions> & Category & {
         _id: Types.ObjectId;

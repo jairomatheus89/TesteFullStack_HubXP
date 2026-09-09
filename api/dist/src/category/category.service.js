@@ -26,11 +26,12 @@ let CategoryService = class CategoryService {
         this.productModel = productModel;
     }
     async registerCategory(data) {
+        if (data.name === "") {
+            throw new common_1.BadRequestException("Nome da categoria nao pode ser vazio!");
+        }
         const categoryExisted = await this.categoryModel.findOne(data);
         if (categoryExisted != null) {
-            return {
-                status: "Categoria ja existente!"
-            };
+            throw new common_1.ConflictException("Categoria ja existente!");
         }
         const category = new this.categoryModel(data);
         return category.save();
@@ -43,6 +44,13 @@ let CategoryService = class CategoryService {
         return category;
     }
     async patchCategory(data) {
+        const alreadyExist = await this.categoryModel.findOne({
+            name: data.name,
+            _id: { $ne: data.id }
+        });
+        if (alreadyExist) {
+            throw new common_1.ConflictException("JA EXISTE UMA CATEGORIA COM ESSE NOME...");
+        }
         const category = await this.categoryModel.findByIdAndUpdate(data.id, {
             name: data.name
         }, { returnDocument: 'after' });

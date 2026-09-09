@@ -23,14 +23,16 @@ export class CategoryService {
 
   async registerCategory(data: CategoryRegister) {
 
+    if(data.name === ""){
+      throw new BadRequestException("Nome da categoria nao pode ser vazio!");
+    }
+
     const categoryExisted = await this.categoryModel.findOne(
       data
     )
 
     if(categoryExisted != null){
-      return {
-        status: "Categoria ja existente!"
-      }
+      throw new ConflictException("Categoria ja existente!");
     }
 
     const category = new this.categoryModel(data);
@@ -47,6 +49,15 @@ export class CategoryService {
   }
 
   async patchCategory(data: CategoryPatch){
+    const alreadyExist = await this.categoryModel.findOne({
+      name: data.name,
+      _id: {$ne: data.id}
+    })
+
+    if(alreadyExist){
+      throw new ConflictException("JA EXISTE UMA CATEGORIA COM ESSE NOME...");
+    }
+
     const category = await this.categoryModel.findByIdAndUpdate(
       data.id,
       {

@@ -11,15 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryRegister = void 0;
 const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
 class CategoryRegister {
     name;
 }
 exports.CategoryRegister = CategoryRegister;
 __decorate([
+    (0, class_transformer_1.Transform)(({ value }) => value.trim()),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
-    (0, class_validator_1.Matches)(/^[\p{L}0-9 ]+$/u, {
-        message: "Nao é permitido caracteres especiais"
+    (0, class_validator_1.Matches)(/^[\p{L}0-9]+(?: [\p{L}0-9]+)*$/u, {
+        message: "Nao é permitido caracteres especiais ou espaços consecutivos"
     }),
     __metadata("design:type", String)
 ], CategoryRegister.prototype, "name", void 0);

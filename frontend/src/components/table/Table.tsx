@@ -10,7 +10,7 @@ interface TableItem {
 interface TableProps<T extends TableItem> {
   data: T[];
   renderItem: (item: T) => React.ReactNode;
-  openEditDrawer: () => void;
+  openEditDrawer: (item: T) => void;
 }
 
 function Table<T extends TableItem>({data, renderItem, openEditDrawer}: TableProps<T>){
@@ -51,7 +51,7 @@ function Table<T extends TableItem>({data, renderItem, openEditDrawer}: TablePro
         data
         ?
           data.map((item) => (
-            <div key={item._id} onClick={openEditDrawer}>
+            <div key={item._id} onClick={() => openEditDrawer(item)}>
               <Box
                 sx={{
                   display:'flex',
@@ -76,7 +76,7 @@ function Table<T extends TableItem>({data, renderItem, openEditDrawer}: TablePro
             </div>
           ))
         : 
-          <Typography>Não há categorias no momento...</Typography>
+          <Typography>Não há Dados</Typography>
       }
     </Box>
   );
