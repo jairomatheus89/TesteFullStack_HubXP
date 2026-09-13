@@ -63,6 +63,9 @@ let ProductsService = class ProductsService {
             dataUpdate.description = data.description;
         }
         if (data.price !== undefined) {
+            if (data.price === null) {
+                throw new common_1.ConflictException("PREÇO NAO PODE SER NULO!");
+            }
             dataUpdate.price = data.price;
         }
         if (data.imageUrl !== undefined) {

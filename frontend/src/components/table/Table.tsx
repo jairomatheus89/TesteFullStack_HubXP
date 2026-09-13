@@ -28,23 +28,6 @@ function Table<T extends TableItem>({data, renderItem, openEditDrawer}: TablePro
         overflowY: 'auto',
         //border: '3px solid red',
         padding: 1,
-
-        '&::-webkit-scrollbar': {
-          width: '4px',
-        },
-
-        '&::-webkit-scrollbar-track': {
-          background: 'transparent',
-        },
-
-        '&::-webkit-scrollbar-thumb': {
-          backgroundColor: '#888',
-          borderRadius: '4px',
-        },
-
-        '&::-webkit-scrollbar-thumb:hover': {
-          backgroundColor: '#555',
-        },
       }}
     >
       {

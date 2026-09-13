@@ -6,6 +6,9 @@ import { createThemeApp } from './themes/theme'
 //Components
 import Layout from './layouts/Layout'
 
+//Style
+import GlobalStyleConfig from './GlobalStyleConfig';
+
 //pages
 import Dashboard from './pages/dashboard/Dashboard';
 import CategoryPage from './pages/categories/Category';
@@ -22,6 +25,8 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <GlobalStyleConfig/>
+      
       <Layout setdarkmode={setDarkmode}>
         <Routes>
           <Route

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 
@@ -74,6 +74,11 @@ export class ProductsService {
     }
 
     if(data.price !== undefined){
+
+      if(data.price === null){
+        throw new ConflictException("PREÇO NAO PODE SER NULO!");
+      }
+
       dataUpdate.price = data.price;
     }
 

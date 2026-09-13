@@ -15,5 +15,37 @@ export const productService = {
     });
 
     return response.data;
+  },
+  async patchProductName(productId: string, name: string){
+    const response = await apiService.patch("/products", {
+      id: productId,
+      name: name
+    });
+
+    return response.data;
+  },
+  async patchProductDesc(productId: string, desc: string){
+    const response = await apiService.patch("/products", {
+      id: productId,
+      description: desc
+    });
+
+    return response.data;
+  },
+  async patchProductPrice(productId: string, price: number){
+    const response = await apiService.patch("/products", {
+      id: productId,
+      price: price
+    });
+
+    return response.data;
+  },
+  async patchProductCategories(productId: string, categoriesIds: string[]){
+    const response = await apiService.patch("/products", {
+      id: productId,
+      categoryIds: categoriesIds
+    });
+
+    return response.data;
   }
 }

@@ -21,6 +21,7 @@ function CategoryPage(){
   const [tableData, setTableData] = useState<CategoryDataTable>([]);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [categoryNewName, setCategoryNewName] = useState<string>("");
+  const [modalActionType, setModalActionType] = useState<actionType | null>(null);
 
   //snack states
   const [ snackOpen, setSnackOpen] = useState(false);
@@ -33,8 +34,6 @@ function CategoryPage(){
   const [openModal, setOpenModal] = useState(false);
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
-
-  const [modalActionType, setModalActionType] = useState<actionType | null>(null);
 
   const openEditModal = () => {
     setModalActionType("EDIT");
@@ -256,7 +255,7 @@ function CategoryPage(){
           >
             <Typography sx={{fontSize: 32}}>Categoria</Typography>
             <Box>
-              <Typography sx={{fontSize: 24}}>name:</Typography>
+              <Typography sx={{fontSize: 24}}>Name:</Typography>
               <Typography className="content">{selectedCategory?.name}</Typography>
             </Box>
             <Box>
