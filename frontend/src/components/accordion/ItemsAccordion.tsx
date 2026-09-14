@@ -36,7 +36,7 @@ export default function ItemsAccordion({renderItem, expand, expandHandle}: Accor
           display:'flex',
           flexDirection: 'column',
           overflowY: 'auto',
-          maxHeight: 100,
+          maxHeight: 200,
           gap:1
         }}
       >

@@ -19,7 +19,7 @@ export class ProductRegister {
   @IsMongoId({each: true})
   categoryIds!: string[];
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   imageUrl?: string;
 }

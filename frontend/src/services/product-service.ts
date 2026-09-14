@@ -1,5 +1,7 @@
 import { apiService } from "./api-service";
 
+import type { ProductPost } from "@/types/productDataTable";
+
 export const productService = {
 
   async getAllProducts() {
@@ -45,6 +47,17 @@ export const productService = {
       id: productId,
       categoryIds: categoriesIds
     });
+
+    return response.data;
+  },
+  async postProduct(product: ProductPost){
+
+    const newProduct = {
+      ...product,
+      categoryIds: product.categoryIds.map(category => category._id)
+    }
+
+    const response = await apiService.post("/products", newProduct);
 
     return response.data;
   }

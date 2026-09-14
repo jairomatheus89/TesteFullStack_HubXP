@@ -11,4 +11,11 @@ export interface Product {
   categoryIds: ProductCategory[];
 }
 
+export interface ProductPost {
+  name: string;
+  description: string;
+  price: number;
+  categoryIds: ProductCategory[];
+}
+
 export type ProductDataTable = Product[];

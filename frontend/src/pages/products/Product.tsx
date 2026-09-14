@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Box, Typography, IconButton, Input, Button } from "@mui/material";
-import { Refresh, Edit, Delete } from "@mui/icons-material";
+import { Refresh, Edit, Delete, Add } from "@mui/icons-material";
 import { productService } from "@/services/product-service";
 import { categoryService } from "@/services/category-service";
 import axios from "axios";
 
-import type { Product, ProductDataTable, ProductCategory } from "@/types/productDataTable";
+import type { Product, ProductDataTable, ProductCategory, ProductPost } from "@/types/productDataTable";
 import type { Category } from "@/types/categoryDataTable";
 
 import SimpleSnackbar from "@/components/alert/SimpleSnackbar";
@@ -13,6 +13,7 @@ import Table from "@/components/table/Table";
 import EditItemDrawer from "@/components/editdrawer/EditItemDrawer";
 import AlertEditModal from "@/components/alert/ModalItemEditor";
 import ItemsAccordion from "@/components/accordion/ItemsAccordion";
+import AddItemBut from "@/components/Fab/AddItemBut";
 
 type actionType = "CREATE" | "EDIT" | "DELETE";
 type atributeType = "NAME" | "DESCRIPTION" | "CATEGORIE" | "PRICE";
@@ -24,12 +25,12 @@ function ProductPage(){
   const [modalActionType, setModalActionType] = useState<actionType | null>(null);
   const [atributeEdit, setAtributeEdit] = useState<atributeType | null>(null);
   const [allCategories, setAllCategories] = useState<Category[] | null>(null);
-  //const [newCategoryIds, setNewCategoryIds] = useState<Category[] | null>(null);
 
   //new atributesEdit
   const [newProductName, setNewProductName] = useState<string>("");
   const [newProductDesc, setNewProductDesc] = useState<string>("");
   const [newProductPrice, setNewProductPrice] = useState<number | null>(null);
+  const [newCategoryIds, setNewCategoryIds] = useState<ProductCategory[] | null>(null);
 
   //snack states
   const [ snackOpen, setSnackOpen ] = useState(false);
@@ -228,6 +229,58 @@ function ProductPage(){
     }
   }
 
+  const handleDeleteProduct = async (productId: string) => {
+    try{
+      const result = await productService.deleteProduct(productId);   
+      setTableData((currentTable) => currentTable.filter(product => product._id !== productId));
+
+      setReqMessage(result.status);
+      setSnackOpen(true);
+      handleCloseModal();
+      closeEditDrawerFunc();
+      return;
+
+    }catch(error){
+      if(axios.isAxiosError(error)){
+        setReqMessage(error?.response?.data?.message);
+        console.error(error?.response?.data?.message);
+        setSnackOpen(true);
+        return;
+      }
+      console.error(error);
+    }
+  }
+
+  const handleCreateProduct = async (product: ProductPost) => {
+
+    try{
+      await productService.postProduct(product);
+
+      setReqMessage("PRODUTO CRIADO COM SUCESSO!");
+      setSnackOpen(true);
+      handleCloseModal();
+      closeEditDrawerFunc();
+      loadCategories();
+      return;
+    }catch(error){
+      if(axios.isAxiosError(error)){
+        setReqMessage(error?.response?.data?.message[0]);
+        console.error(error?.response?.data?.message[0]);
+        setSnackOpen(true);
+        return;
+      }
+      console.error(error);
+    }
+  }
+
+  const openCreateModel = () => {
+    setModalActionType("CREATE");
+    setNewProductDesc("");
+    setNewProductName("");
+    setNewProductPrice(null);
+    setNewCategoryIds(null);
+    handleOpenModal();
+  }
 
   const openDeleteModal = () => {
     setModalActionType("DELETE");
@@ -537,9 +590,27 @@ function ProductPage(){
                                   renderItem={
                                     () => {
                                       return(
-                                        allCategories?.map((category, index) => 
-                                          <Box key={index} sx={{ bgcolor: 'gray'}}>
+                                        allCategories?.map((category) => 
+                                          <Box key={category._id} sx={{ bgcolor: 'gray'}}>
                                             <Typography>{category.name}</Typography>
+                                            <IconButton 
+                                              onClick={
+                                                () => {
+                                                  setSelectedProduct(prev => {
+                                                    if(!prev) return null;
+                                                    return{
+                                                      ...prev,
+                                                      categoryIds: [
+                                                        ...prev.categoryIds,
+                                                        category
+                                                      ]
+                                                    }
+                                                  });
+                                                }
+                                              }
+                                            >
+                                              <Add/>
+                                            </IconButton>
                                           </Box>
                                         )
                                       );
@@ -574,14 +645,154 @@ function ProductPage(){
                 return(
                   <Box className="actionModalBox">
                     <Typography className="titleModal">DELETE?</Typography>
-                    
+                    <Typography>Tem certeza que deseja remover o produto?</Typography>
+                    <Box className="butBox">
+                      <Button className="butAction" onClick={() => handleDeleteProduct(selectedProduct!._id)}>Confirmar</Button>
+                      <Button className="butAction" onClick={handleCloseModal} sx={{color: 'red'}}>Cancelar</Button>
+                    </Box>
                   </Box>
                 );
               case "CREATE":
                 return(
                   <Box className="actionModalBox">
                     <Typography className="titleModal">CREATE</Typography>
-                    
+                    <Box sx={{
+                        display:'flex',
+                        flexDirection:'column',
+                        alignItems:'center',
+                        width:"100%",
+                        padding:1,
+                        gap:2,
+                        overflowY:'auto',
+                        maxHeight:460,
+
+                        "& .inputBox":{
+                          display:'flex',
+                          flexDirection:'column',
+                          alignItems:'center',
+                          textAlign:'center'
+                        }
+                      }}
+                    >
+                      <Box className="inputBox">
+                        <Typography>Name:</Typography>
+                        <Input placeholder="Insira o Nome" value={newProductName} onChange={(e) => setNewProductName(e.target.value)}/>
+                      </Box>
+                      <Box className="inputBox">
+                        <Typography>Description:</Typography>
+                        <Input placeholder="Insira a Descrição" value={newProductDesc} onChange={(e) => setNewProductDesc(e.target.value)}/>
+                      </Box>
+                      <Box className="inputBox">
+                        <Typography>Price:</Typography>
+                        <Input placeholder="Insira o Preço(Numeros)" inputProps={{ min: 0 }} value={newProductPrice ?? ""} onChange={(e) => setNewProductPrice(e.target.value === "" ? null : Number(e.target.value))}/>
+                      </Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          width: "100%"
+                        }}
+                      >
+                        <Typography >Categories:</Typography>
+                        <Box
+                          sx={{
+                            display:'flex',
+                            flexDirection:'column',
+                            alignItems:'center',
+                            gap:1,
+                            padding: 1,
+                            borderRadius: 1,
+                            width: "100%",
+                            maxHeight:200,
+                            overflowY: 'auto',
+
+                            "& .categoryBox":{
+                              display:'flex',
+                              backgroundColor: (theme) => theme.palette.mode === 'light'
+                              ? 'rgba(100, 100, 100, 0.4)'
+                              : 'rgba(0, 0, 0, 0.4)',
+                              justifyContent:'space-between',
+                              alignItems:'center',
+                              borderRadius: 1,
+                              padding: 1
+                            }
+                          }}
+                        >
+                          {
+                            newCategoryIds == null
+                            ?
+                              <Typography>Nenhuma categoria selecionada...</Typography>
+                            :
+                              newCategoryIds.map((category) => 
+                                <Typography key={category._id} sx={{color: 'red'}}>{category.name}</Typography>
+                              )
+                          }
+                        </Box>
+                        <ItemsAccordion
+                          expand={expandAccordion}
+                          expandHandle={handleExpandAccordion}
+                          renderItem={
+                            () => {
+                              return(
+                                allCategories?.map((category) => 
+                                  <Box key={category._id}
+                                    sx={{
+                                      display:'flex',
+                                      justifyContent: 'space-between',
+                                      alignItems:'center',
+                                      padding:1,
+                                      bgcolor: (theme) => theme.palette.mode === 'light'
+                                        ? 'rgba(100, 100, 100, 0.4)'
+                                        : 'rgba(0, 0, 0, 0.4)',
+                                    }}
+                                  >
+                                    <Typography>{category.name}</Typography>
+                                    <IconButton 
+                                      onClick={
+                                        () => {
+                                          setNewCategoryIds(prev => {
+                                            const current = prev ?? [];
+
+                                            if(current.some(item => item._id === category._id)){
+                                              return current;
+                                            }
+
+                                            return [...current, category];
+                                          });
+                                        }
+                                      }
+                                    >
+                                      <Add/>
+                                    </IconButton>
+                                  </Box>
+                                )
+                              );
+                            }
+                          }
+                        />
+                      </Box>
+                      <Box className="butBox">
+                        <Button className="butAction"
+                          onClick={() => {
+                            if(!newCategoryIds || newCategoryIds.length === 0){
+                              setReqMessage("Product precisa ter pelo menos UMA categoria...");
+                              setSnackOpen(true);
+                              return;
+                            }
+
+                            handleCreateProduct({
+                              name: newProductName,
+                              description: newProductDesc,
+                              price: newProductPrice!,
+                              categoryIds: newCategoryIds
+                            })
+                          }}
+                        >
+                          Confirmar</Button>
+                        <Button className="butAction" sx={{color:'red'}}>Cancelar</Button>
+                      </Box>
+                    </Box>
                   </Box>
                 );
               default:
@@ -590,6 +801,7 @@ function ProductPage(){
           }
         }
       />
+      <AddItemBut openCreateModal={openCreateModel}/>
     </Box>
   );
 }

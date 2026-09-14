@@ -7,14 +7,19 @@ import type { Order, OrderDataTable } from "@/types/ordersDataTable";
 
 import SimpleSnackbar from "@/components/alert/SimpleSnackbar";
 import Table from "@/components/table/Table";
+import EditItemDrawer from "@/components/editdrawer/EditItemDrawer";
 
 function OrderPage(){
 
   const [tableData, setTableData] = useState<OrderDataTable>([]);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   //snack states
   const [ snackOpen, setSnackOpen] = useState(false);
   const [reqMessage, setReqMessage] = useState("");
+
+  //Item drawer Editor
+  const [openEditDrawer, setOpenEditDrawer] = useState(false);
 
   const loadCategories = async () => {
     const result = await orderService.getAllOrders();
@@ -27,6 +32,17 @@ function OrderPage(){
     }
     firstLoad();
   }, []);
+
+
+  const openEditDrawerFunc = (data: Order) => {
+    setSelectedOrder(data);
+    setOpenEditDrawer(true);
+  }
+
+  const closeEditDrawerFunc = () => {
+    setSelectedOrder(null);
+    setOpenEditDrawer(false);
+  };
 
   return(
     <Box
@@ -58,6 +74,7 @@ function OrderPage(){
       >
         <Table<Order>
           data={tableData}
+          openEditDrawer={openEditDrawerFunc}
           renderItem={
             (order) => (
               <Box
@@ -106,6 +123,69 @@ function OrderPage(){
         open={snackOpen}
         message={reqMessage}
         onClose={() => setSnackOpen(false)}
+      />
+      <EditItemDrawer
+        open={openEditDrawer}
+        onClose={closeEditDrawerFunc}
+        renderItem={() => (
+          <Box 
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              width: '100%',
+              padding: 2,
+              "& .content":{
+                padding: 1,
+                borderRadius: 2,
+                backgroundColor: (theme) => theme.palette.mode === 'light'
+                  ? 'rgba(100, 100, 100, 0.4)'
+                  : 'rgba(0, 0, 0, 0.4)'
+              },
+              "& .contentBox":{
+
+              },
+              "& .contentTitle":{
+                display:'flex'
+              },
+              "& .optPanel":{
+                display: 'flex',
+                justifyContent: 'center',
+                gap:10,
+              }
+
+            }}
+          >
+            <Typography sx={{fontSize: 32}}>Order</Typography>
+
+            <Box className="contentBox">
+              <Box className="contentTitle">
+                <Typography sx={{fontSize: 24}}>Date:</Typography>
+              </Box>
+              <Typography className="content">{selectedOrder?.date}</Typography>
+            </Box>
+
+            <Box className="contentBox">
+              <Box className="contentTitle">
+              </Box>
+            </Box>
+
+            <Box className="contentBox">
+              <Box className="contentTitle">
+              </Box>
+
+              <Box className="content" sx={{display:'flex', color: 'red'}}>
+              </Box>
+            </Box>
+
+            <Box className="contentBox">
+              <Box className="contentTitle">
+              </Box>
+            </Box>
+            <Box className="contentBox">
+            </Box>
+          </Box>
+        )}
       />
     </Box>
   );
